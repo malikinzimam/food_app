@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  BestSellerScreen()),
+                MaterialPageRoute(builder: (context) =>  const BestSellerScreen()),
               );
             },
             child: const Text(
@@ -169,7 +169,7 @@ class HomeScreen extends StatelessWidget {
   selectedItemColor: Colors.deepOrangeAccent, 
   unselectedItemColor: Colors.yellow.shade100, 
   // showUnselectedLabels: false, 
-  items: [
+  items: const [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
     BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
     BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: ""),
