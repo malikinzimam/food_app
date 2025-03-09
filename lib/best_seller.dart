@@ -1,148 +1,42 @@
+
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import 'help_center.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.amber.shade300,
-        elevation: 0,
-        title: Row(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search, color: Colors.orange),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            const Icon(Icons.shopping_cart, color: Colors.orange),
-            const SizedBox(width: 10),
-            const Icon(Icons.person, color: Colors.orange),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Good Morning",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.orange),
-                  ),
-                  Text(
-                    "Rise And Shine! It's Breakfast Time",
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Best Seller",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BestSellerScreen()),
-                      );
-                    },
-                    child: const Text(
-                      "View All",
-                      style: TextStyle(
-                          color: Colors.orange, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 150,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: bestSellers.take(3).map((item) {
-                  return bestSellerItem(
-                      item['image']!, item['name']!, item['price']!);
-                }).toList(),
-              ),
-            ),
-          ],
-        ),
-      ),
-      
-    );
-  }
-
-  Widget bestSellerItem(String imagePath, String name, String price) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(imagePath,
-                width: 100, height: 80, fit: BoxFit.cover),
-          ),
-          const SizedBox(height: 5),
-          Text(name,
-              style:
-                  const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-          Text(price,
-              style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orange)),
-        ],
-      ),
-    );
-  }
-}
-
-class BestSellerScreen extends StatelessWidget {
+class BestSellerScreen extends StatefulWidget {
   const BestSellerScreen({super.key});
+
+  @override
+  _BestSellerScreenState createState() => _BestSellerScreenState();
+}
+
+class _BestSellerScreenState extends State<BestSellerScreen> {
+  
+  int _selectedIndex = 1;
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) return; 
+    setState(() {
+      _selectedIndex = index;
+    });
+
+        switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+        break;
+      case 1:
+        break; // Already on BestSellerScreen
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  HelpCenterScreen()),
+        );
+        break;
+    }
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +104,21 @@ class BestSellerScreen extends StatelessWidget {
           },
         ),
       ),
+
+      // Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+
+      onTap: _onItemTapped,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.orange,
+      selectedItemColor: Colors.deepOrangeAccent,
+      unselectedItemColor: Colors.yellow.shade100,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: "Best Sellers"),
+        BottomNavigationBarItem(icon: Icon(Icons.support), label: "Help"),
+      ],
+    ),
     );
   }
 }

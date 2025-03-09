@@ -1,9 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/best_seller.dart';
+import 'package:food_app/help_center.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) return; 
+    setState(() {
+      _selectedIndex = index;
+    });
+
+        switch (index) {
+      case 0:
+        break; // Already on HomeScreen
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BestSellerScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HelpCenterScreen()),
+        );
+        break;
+    }
+  }
+
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,19 +194,20 @@ class HomeScreen extends StatelessWidget {
       ),
 
       // Bottom Navigation Bar
+      
       bottomNavigationBar: BottomNavigationBar(
-        
-  backgroundColor: Colors.orange, 
-  selectedItemColor: Colors.deepOrangeAccent, 
-  unselectedItemColor: Colors.yellow.shade100, 
-  // showUnselectedLabels: false, 
-  items: const [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-    BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-    BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: ""),
-    BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ""),
-  ],
-      ),
+
+      onTap: _onItemTapped,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.orange,
+      selectedItemColor: Colors.deepOrangeAccent,
+      unselectedItemColor: Colors.yellow.shade100,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: "Best Sellers"),
+        BottomNavigationBarItem(icon: Icon(Icons.support), label: "Help"),
+      ],
+    ),
     );
   }
 
@@ -237,4 +269,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
+} 
