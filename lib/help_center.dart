@@ -33,6 +33,8 @@ class HelpCenterScreen extends StatelessWidget {
     {'title': 'Instagram', 'icon': Icons.camera_alt},
   ];
 
+  HelpCenterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -43,12 +45,12 @@ class HelpCenterScreen extends StatelessWidget {
           backgroundColor: Colors.orange,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {},
           ),
-          title: Column(
+          title: const Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Text('Help Center', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
               Text('How Can We Help You?', style: TextStyle(color: Colors.white70, fontSize: 14)),
             ],
@@ -63,23 +65,23 @@ class HelpCenterScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             tabs: [
-              Tab(text: 'FAQ'),
+              const Tab(text: 'FAQ'),
               Tab(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text('Contact Us', style: TextStyle(color: Colors.white)),
+                  child: const Text('Contact Us', style: TextStyle(color: Colors.white)),
                 ),
               ),
             ],
           ),
         ),
         body: Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(12),
+          decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
@@ -89,7 +91,7 @@ class HelpCenterScreen extends StatelessWidget {
                 leading: Icon(item['icon'], color: Colors.orange, size: 30),
                 title: Text(
                   item['title'],
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 children: [
                   Padding(
